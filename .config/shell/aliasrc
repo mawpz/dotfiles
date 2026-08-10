@@ -1,0 +1,38 @@
+#!/usr/bin/env sh
+
+ed () {
+	file="$(fzf)"
+	[[ ! -z "$file" ]] && vim "$file"
+}
+
+setup() {
+	set -xe
+	rm -rf ~/Desktop ~/Templates ~/Music ~/Projects ~/Public
+	ln -sf /mnt/5tb/Music $HOME/Music
+	[[ ! -d "$HOME/.config/mozilla" ]] && ln -sf /mnt/1tb/BrowserData/mozilla $HOME/.config
+	[[ ! -d "$HOME/.config/chromium" ]] && ln -sf /mnt/1tb/BrowserData/chromium $HOME/.config
+	set +xe
+	curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+}
+
+# Standard Aliases
+alias \
+	ls='exa --color=auto' \
+	ll="ls -l" \
+	lah="ls -lah" \
+	grep='grep --color=auto' \
+	nossvr="xset s off; xset s noblank; xset -dpms" \
+	rm="rm -i" \
+	pac="sudo pacman" \
+	so="source" \
+	rld="source ~/.config/shell/aliasrc"
+
+# Directory Shortcuts
+alias \
+	gvfsmnt="/run/user/1000/gvfs/" \
+	8tb="/run/user/1000/gvfs/smb-share:server=10.0.0.1,share=8tb" \
+	120g="/mnt/120g" \
+	1tb="/mnt/1tb" \
+	4tb="/mnt/4tb" \
+	5tb="/mnt/5tb" \
+	code="/mnt/5tb/code"

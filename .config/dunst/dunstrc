@@ -1,0 +1,28 @@
+[global]
+	monitor = 0
+	follow = mouse
+
+	width = (0, 500)
+	height = (0, 500)
+	offset = (10, 30)
+	scale = 0
+	notification_limit = 10
+	padding = 5
+	text_icon_padding= 5
+	font = Inconsolata 12
+	markup = full
+
+[urgency_low]
+	background = "#282c34"
+	foreground = "#abb2bf"
+	frame_color = "#e5c07b"
+
+[urgency_normal]
+	background = "#282c34"
+	foreground = "#abb2bf"
+	frame_color = "#61afef"
+
+[urgency_critical]
+	background = "#282c34"
+	foreground = "#abb2bf"
+	frame_color = "#ed6c75"
