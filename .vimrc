@@ -24,6 +24,8 @@ Plug 'potatoesmaster/i3-vim-syntax'
 Plug 'girishji/vimsuggest'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'riscript/vim-fasm-syntax'
+Plug 'code5717/c3.vim'
+Plug 'itchyny/lightline.vim'
 call plug#end()
 
 let g:minimap_width = 2
@@ -63,9 +65,21 @@ let g:currentmode={
     \ 'R'  : 'R'
     \}
 
+let g:lightline={
+    \ 'mode_map': {
+    \ 'n'  : 'N',
+    \ 'v'  : 'V',
+    \ 'c'  : 'CMD',
+    \ 'V'  : 'VL',
+    \ "\<C-v>" : 'VB',
+    \ 'i'  : 'I',
+    \ 'R'  : 'R'
+    \}
+    \}
 " Colour Settings
 set background=dark
-colorscheme woju
+" colorscheme woju
+colorscheme alterior
 
 """" Status Line """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set statusline=
@@ -80,35 +94,8 @@ set statusline+=\ %{''!=#&filetype?&filetype:'none'}
 set statusline+=%(\ %{(&bomb\|\|'^$\|utf-8'!~#&fileencoding?'\ '.&fileencoding.(&bomb?'-bom':''):'').('unix'!=#&fileformat?'\ '.&fileformat:'')}%)
 set statusline+=%(\ \ %{&modifiable?(&expandtab?'et\ ':'noet\ ').&shiftwidth:''}%)
 set statusline+=\ 
-set statusline+=\ %2v
-set statusline+=\%3p%%\ 
-
-"""" Highlighting """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-hi Pmenu ctermbg=black ctermfg=gray
-hi PmenuMatch ctermfg=30 cterm=bold
-hi Pmenusel ctermbg=30 cterm=bold
-
-hi ModeMsg ctermfg=220 ctermbg=black cterm=bold
-hi MsgArea ctermfg=220
-
-hi TabLine ctermbg=black ctermfg=12 cterm=italic
-hi TabPanelSel ctermbg=220 ctermfg=0
-hi TabLineSel ctermfg=220
-
-hi StatusLine ctermbg=black ctermfg=220 cterm=bold
-hi StatusLineNC ctermbg=black ctermfg=102 cterm=italic
-hi StatusLineTerm ctermbg=black ctermfg=35
-
-hi VertSplit ctermbg=black ctermfg=white
-
-hi CursorLine ctermbg=none
-hi CursorLineNr ctermfg=220 ctermbg=NONE cterm=bold
-hi Visual ctermfg=249
-
-hi VertSplit ctermbg=black ctermfg=black
-hi VertSplitNC ctermbg=black ctermfg=black
-
-hi ExtraWhitespace ctermbg=8
+set statusline+=\ %2v 
+set statusline+=\ %3p%%\ 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 augroup AutoReloadVimrc
@@ -119,7 +106,7 @@ augroup END
 
 fun! ModifyVimrc()
 	let l:filename = expand('%')
-	let l:vimrc = '/home/mawpz/.vimrc'
+	let l:vimrc = '/home/86kbyte/.vimrc'
 
 	if l:filename == l:vimrc || '.vimrc' || '~/.vimrc'
 		echo "Not opening ~/.vimrc: Already opened"
@@ -132,6 +119,21 @@ fun! ModifyVimrc()
 	endif
 endfun
 
+fun! CompilerCommand()
+	let l:command = input("Compile command: ")
+	redraw!
+
+	if empty(command)
+		return
+	endif
+
+	execute 'below term ++rows=8 ' . l:command
+	set winfixheight
+
+	tnoremap <buffer> <silent> <Esc> <C-\><C-n>:close<CR>
+	nnoremap <buffer> <silent> <CR>  :close<CR>
+endfun
+
 """" Keybindings """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 cnoreabbrev new tabnew
 cnoreabbrev PI PlugInstall
@@ -140,13 +142,15 @@ cnoreabbrev pi PlugInstall
 map <F1> :help 
 map <F4> :call ModifyVimrc()<CR>
 map <F2> :! 
-map <F6> <F5>:PlugInstall<CR>
-map <F7> :PlugInstall<CR>
+map <F5> :PlugInstall<CR>
+map <F6> :term ++rows=8<CR>
 map <F9> :NERDTreeToggle<CR>
-map <C-m> :! make<CR>
+map <C-x>m :call CompilerCommand()<CR>
+map <C-x>m <F2>
 map <C-x>b :bd<CR>
 map <C-x><C-e> :so %<CR>
-map <C-x><C-f> :tabnew 
+map <C-x><C-f> :e <C-R>=getcwd()<CR>/
+map <C-x><C-t><C-f> :new <C-R>=getcwd()<CR>/
 map <C-x><C-s> :w<CR>
 map <C-x><C-w> :tabclose<CR>
 map <C-x>k ZZ
