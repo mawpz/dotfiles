@@ -1,4 +1,3 @@
-"
 " ~/.vimrc
 "
 
@@ -11,13 +10,17 @@ set number relativenumber
 set laststatus=2
 set noshowmode
 set splitbelow
+set shortmess+=I
 " set cc=80
+
+let mapleader = ","
 
 call plug#begin()
 Plug 'valloric/youcompleteme'
 Plug 'lilydjwg/colorizer'
 Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/NERDTree'
+Plug 'scrooloose/nerdcommenter'
 Plug 'flazz/vim-colorschemes'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'potatoesmaster/i3-vim-syntax'
@@ -26,6 +29,8 @@ Plug 'ntpeters/vim-better-whitespace'
 Plug 'riscript/vim-fasm-syntax'
 Plug 'code5717/c3.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'rose-pine/vim'
+" Plug 'w0rp/ale'           " I found an LSP to be highly annoying.
 call plug#end()
 
 let g:minimap_width = 2
@@ -153,7 +158,7 @@ map <C-x><C-f> :e <C-R>=getcwd()<CR>/
 map <C-x><C-t><C-f> :new <C-R>=getcwd()<CR>/
 map <C-x><C-s> :w<CR>
 map <C-x><C-w> :tabclose<CR>
-map <C-x>k ZZ
+map <C-x>k :close<CR>
 map <C-t> :tabNext<CR>
 
 map <C-x>= 5<C-w>+
