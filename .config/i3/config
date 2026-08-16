@@ -2,7 +2,7 @@ set $mod Mod1
 set $win Mod4
 
 set $terminal "terminology"
-set $browser "chromium"
+set $browser "firefox"
 set $filemgr "thunar"
 
 gaps inner 10
@@ -35,8 +35,8 @@ bar {
 }
 
 title_align center
-# default_border pixel 1
-# default_floating_border pixel 1
+default_border pixel 1
+default_floating_border pixel 1
 
 bindsym $win+r reload
 bindsym $win+Shift+r restart
@@ -54,7 +54,7 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
-exec /home/mawpz/.config/i3/autostart.sh
+exec /home/86kbyte/.config/i3/autostart.sh
 
 workspace_layout tabbed
 bindsym $mod+t layout tabbed
@@ -69,7 +69,7 @@ bindsym XF86AudioPlay exec playerctl play-pause
 bindsym $win+l exec slock
 bindsym $win+e exec $filemgr
 bindsym $win+w exec $browser
-bindsym Print exec "maim --select | xclip -selection clipboard -t image/png"
+bindsym Print exec "maim -u --select | xclip -selection clipboard -t image/png"
 bindsym $mod+Shift+Return exec $terminal
 
 bindsym $mod+Shift+c kill
